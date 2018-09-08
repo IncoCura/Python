@@ -53,10 +53,10 @@ if ERRORLEVEL 9009 (
 echo.Fetching external libraries...
 
 git clone https://github.com/enthought/bzip2-1.0.6
-git clone git@gitlab.com:KangDroid/nasm-2.11.06.git
-git clone git@gitlab.com:KangDroid/openssl-1.0.2j.git
-git clone git@gitlab.com:KangDroid/sqlite-3.8.11.0.git
-git clone git@gitlab.com:KangDroid/xz-5.0.5.git
+git clone https://gitlab.com/KangDroid/nasm-2.11.06.git
+git clone https://gitlab.com/KangDroid/openssl-1.0.2j.git
+git clone https://gitlab.com/KangDroid/sqlite-3.8.11.0.git
+git clone https://gitlab.com/KangDroid/xz-5.0.5.git
 
 goto end
 
