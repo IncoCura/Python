@@ -5,6 +5,7 @@ rem Simple script to fetch source for external libraries
 if not exist "%~dp0..\externals" mkdir "%~dp0..\externals"
 pushd "%~dp0..\externals"
 
+# Set SVN ROOT for svn. REMOVE THIS
 if "%SVNROOT%"=="" set SVNROOT=http://svn.python.org/projects/external/
 
 rem Optionally clean up first.  Be warned that this can be very destructive!
@@ -40,9 +41,9 @@ if "%1"=="--clean-only" (
 :fetch
 rem Fetch current versions
 
-svn --version > nul 2>&1
+git --version > nul 2>&1
 if ERRORLEVEL 9009 (
-    echo.svn.exe must be on your PATH.
+    echo.git.exe must be on your PATH.
     echo.Try TortoiseSVN (http://tortoisesvn.net/^) and be sure to check the
     echo.command line tools option.
     popd
@@ -51,24 +52,11 @@ if ERRORLEVEL 9009 (
 
 echo.Fetching external libraries...
 
-set libraries=
-set libraries=%libraries%                                    bzip2-1.0.6
-if NOT "%IncludeSSL%"=="false" set libraries=%libraries%     nasm-2.11.06
-if NOT "%IncludeSSL%"=="false" set libraries=%libraries%     openssl-1.0.2j
-set libraries=%libraries%                                    sqlite-3.8.11.0
-if NOT "%IncludeTkinter%"=="false" set libraries=%libraries% tcl-core-8.6.4.2
-if NOT "%IncludeTkinter%"=="false" set libraries=%libraries% tk-8.6.4.2
-if NOT "%IncludeTkinter%"=="false" set libraries=%libraries% tix-8.4.3.6
-set libraries=%libraries%                                    xz-5.0.5
-
-for %%e in (%libraries%) do (
-    if exist %%e (
-        echo.%%e already exists, skipping.
-    ) else (
-        echo.Fetching %%e...
-        svn export %SVNROOT%%%e
-    )
-)
+git clone https://github.com/enthought/bzip2-1.0.6
+git clone git@gitlab.com:KangDroid/nasm-2.11.06.git
+git clone git@gitlab.com:KangDroid/openssl-1.0.2j.git
+git clone git@gitlab.com:KangDroid/sqlite-3.8.11.0.git
+git clone git@gitlab.com:KangDroid/xz-5.0.5.git
 
 goto end
 
